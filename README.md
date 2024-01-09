@@ -3,9 +3,37 @@
 
 
 ```sh
-npm ci
+$ git clone https://github.com/msis-net/ad_fhir.git
+
+#dockerコンテナ作成
+$ cd ad_fhir/
+$ docker compose up --build -d
+
+#コンテナの起動確認
+$ docker-compose.yml
+#もし起動していない場合は[docker-compose.yml]を確認
+#npm 系の実行をコメントアウトする
+
+#コンテナに入る
+$ docker exec -it [Tabキーでコンテナ名が補完] bash
+#以下コンテナ内
+/app# npm ci
+#テスト稼働
+/app# npm run dev
+#コンテナから出る
+/app# exit
+
+#[docker-compose.yml]のnpm run devを有効
+===
+command: /bin/sh -c 'npm run dev'
+#自動起動設定
+restart: always
+
+#コンテナ再起動
+$ docker compose stop
+$ docker compose up -d
 ```
-### 最初から登録した場合
+### 最初から登録する場合
 
 ```sh
 npm create astro@latest（Astroプロジェクトからの場合）
