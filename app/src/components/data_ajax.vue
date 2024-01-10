@@ -8,12 +8,32 @@
         <button role="button" @click="CallPerformScript()">
           Call PerformScript
         </button>
+
+        <button role="button" @click="getAcceptList()">
+          getAcceptList
+        </button>
       </nav>
     </div>
   </template>
   
   <script setup lang="ts" is:inline>
-
+const getAcceptList = () => {
+      let xhr = new XMLHttpRequest()
+      xhr.open('GET', './ORCA_API/acceptlstv2/2024/acceptlstv2_20240110.json', true)
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            console.log('xhr.status',xhr.responseText )
+            
+          } else {
+            console.log('Error!')
+          }
+        } else {
+          console.log('Connecting...')
+        }
+      }
+        xhr.send(null)
+  }
 const CallPerformScript = () => {
   try{
         let result = {
