@@ -1,5 +1,5 @@
 services:
-  hook:
+  admin:
     build:
       context: .
     tty: true
