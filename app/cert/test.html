@@ -1,0 +1,295 @@
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <!-- Vue3 -->
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+      }
+    </script>
+    
+    <title>Claris</title>
+  </head>
+<body>
+  
+  <div id="app" class="m-3 p-2">
+    <h5>Java Scriptによる検索処理(#myApps/03.html)</h5>
+    <div class="row mb-3">
+      <div class="col-sm-3">
+        <select id="select_pref" @input="pref_change" class="form-select" aria-label="Default select example" >
+        
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <select id="select_city" v-model="cityselect" @input="city_change" class="form-select" aria-label="Default select example" >
+          <option v-for="option in cityList" :key="option.key" :value="option.value">
+            {{option.name}}({{option.kana}})
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <select id="select_town" v-model="townselect" @input="town_change" class="form-select" aria-label="Default select example" >
+          <option v-for="option in townList" :key="option.key" :value="option.value">
+            {{option.name}}({{option.kana}})
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="post" placeholder="〒">
+      </div>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="address" placeholder="住所結果">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-3">
+        
+      </div>
+      <div class="col-9">
+        <input type="text" class="form-control" id="addresskana" placeholder="ジュウショカナ">
+      </div>
+    </div>
+    
+  </div>
+
+<script type="module">
+import { ref, createApp } from "vue" 
+
+let KEN_All = []
+let prefList = [{value: '00', name: '', kana : '都道府県' }]
+let CITY = []
+let TOWN = []
+
+const app = createApp({
+  setup () {
+    const counter = ref(0)
+    const time = ref(0)
+    const keyword = ref('')
+    const lists = ref([]) 
+    const prefList = ref([])
+    const cityselect = ref(0)
+    const cityList = ref([])
+    const townList  = ref([])
+    const townLselect = ref()
+
+    return{
+      counter,
+      time,
+      keyword,
+      lists,
+      prefList,
+      cityselect,
+      cityList,
+      townList,
+      townLselect
+    }
+  },
+  mounted() {
+    window.onload = () => {
+      let st = performance.now()
+      let xhr = new XMLHttpRequest()
+      xhr.open('GET', 'utf_all.csv', true)
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            KEN_All = SetData( xhr.responseText )
+            let ed = performance.now()
+            let tm = Math.round((ed - st),0)/1000
+            this.time = tm
+            console.log('Done', KEN_All.length,this.time)
+            SetPref()
+          } else {
+            console.log('Error!')
+          }
+        } else {
+          console.log('Connecting...')
+        }
+      }
+        xhr.send(null)
+    }
+  },
+  methods: {
+    pref_change(event){
+      post.value = ""
+      address.value = ""
+      address.kana = ""
+
+      this.cityList = []
+      this.townList = []
+          
+      let TMP = [{value: '00', name: '', kana : '市区町村' }] 
+      let getkencd = event.target.value
+      console.log(getkencd)
+      for( let i in KEN_All ){
+        let item = KEN_All[i]
+        if( item.kencd == getkencd ){
+          var city_check = TMP.find((v) => v.value == item.localcd)
+          if( city_check == undefined ){
+            let tmp_data = {
+              value : item.localcd,
+              name : item.cityname,
+              kana : item.citykana
+            }
+            console.log(tmp_data)
+            TMP.push(tmp_data)
+          }
+        }
+      }
+      this.cityList = TMP
+      this.cityselect = "00"
+      this.townselect = "00"
+    },
+    city_change(event){
+      post.value = ""
+      address.value = ""
+      address.kana = ""
+
+      this.townList = []
+          
+      let TMP = [{value: '00', name: '', kana : '地域' }] 
+      let getlocalcd = event.target.value
+      this.cityselect = getlocalcd
+      console.log(getlocalcd)
+      for( let i in KEN_All ){
+        let item = KEN_All[i]
+        if( item.localcd == getlocalcd ){
+          var town_check = TMP.find((v) => v.value == item.id)
+          if( town_check == undefined ){
+            let tmp_data = {
+              value : item.id,
+              post : item.post,
+              name : item.townname,
+              kana : item.townkana
+            }
+            TMP.push(tmp_data)
+          }
+        }
+      }
+      this.townList = TMP
+      this.townselect = "00"
+    },
+    town_change(event){
+      let getid = event.target.value
+      let item = KEN_All.find((v) => v.id == getid)//ココがゴール
+      console.log(item)
+          
+      post.value = item.post
+      if (item.townname =='以下に掲載がない場合'){
+        address.value = item.prefname+item.cityname
+        addresskana.value = item.prefkana+item.citykana
+      }else{
+        address.value = item.prefname+item.cityname+item.townname
+        addresskana.value = item.prefkana+item.citykana+item.townkana
+      }
+          
+      //FileMaker.PerformScript
+      try{
+        let result = {
+          post : post.value,
+          address : address.value,
+          addresskana : addresskana.value
+        }
+        FileMaker.PerformScript ("AlertAddress", JSON.stringify(result))
+      }catch(e){
+        console.log('Not Claris FileMaker Platform！')
+      }
+    }
+  },
+  computed: {
+    filteredLists: function() {
+      let st = performance.now()
+      let lists = []
+      if( this.keyword.length > 0 ){
+        for(let i in KEN_All) {
+          let item = KEN_All[i]
+          let schctr = item.post+item.prefname+item.cityname+item.townname+item.prefkana+item.citykana+item.townkana
+          try{
+            if(schctr.indexOf(this.keyword) !== -1 ) {
+              lists.push(item)  //マッチしたitemを登録
+            }
+          }catch(e){}
+        }
+      }
+      let ed = performance.now()
+      let tm = Math.round((ed - st),0)/1000
+      this.counter = lists.length
+      this.time = tm
+      return lists
+    }
+  }
+}).mount('#app') 
+
+function SetData( basedata ){
+    let array =[]
+    let data = basedata.split('\r\n')
+    for (let i in data){
+      let line = data[i].replace(/\"/g, '')
+      let tmp = line.split(',')
+      let kencd = tmp[0].substr(0,2)
+      let item = {
+        id : i,
+        localcd : tmp[0],
+        post5 : tmp[1],
+        post : tmp[2],
+        prefkana : tmp[3],
+        citykana : tmp[4],
+        townkana : tmp[5],
+        prefname : tmp[6],
+        cityname : tmp[7],
+        townname : tmp[8],
+        flg1 : tmp[9],
+        flg2 : tmp[10],
+        flg3 : tmp[11],
+        flg4 : tmp[12],
+        flg5 : tmp[13],
+        flg6 : tmp[14],
+        kencd : tmp[0].substr(0,2),
+      }
+      array.push(item)
+
+      //PREF:都道府県のselectのみ作成
+      var PREF_check = prefList.find((v) => v.value == kencd)
+      if( PREF_check == undefined ){  
+        let tmp_data = {
+          value : kencd,
+          name : item.prefname,
+          kana : item.prefkana
+        }
+        prefList.push(tmp_data)
+      }
+    }
+    return array
+  }  
+
+  function SetPref(){
+    console.log('SetPref')
+    let select_pref = document.getElementById('select_pref')
+    let option_html = ""
+    for (let i in prefList){
+      let value = prefList[i]['value']
+      let name = prefList[i].name
+      let kana = prefList[i].kana
+      if(name.length>0){
+        let option = '<option value='+value+'>['+value+']'+name+'('+kana+')</option>'
+        option_html += option
+      }else{
+        let option = '<option value='+value+'>('+kana+')</option>'
+        option_html += option
+      }
+    }
+    select_pref.innerHTML=option_html
+  }
+</script>
+</body>
+</html>

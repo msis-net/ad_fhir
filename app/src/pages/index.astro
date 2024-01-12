@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import Ajax from "@components/data_ajax.vue"
 import Datatables from "@components/data_datatables.vue";
+import Wsoc from "@components/data_websocket.vue";
 const path = "."
 ---
 
@@ -12,6 +13,7 @@ const path = "."
                 <div class="row">
                     <div class="col-sm-6">
                         <h3 class="mb-0">Dashboard</h3>
+                        <Wsoc client:load/>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
@@ -235,7 +237,9 @@ const path = "."
                 </div> <!-- /.row (main row) -->
 
                 <div class="row">
+                 
                     <div class="col-lg-12">
+                      
                         <Ajax client:load/>
                     <Datatables client:load/>
 
