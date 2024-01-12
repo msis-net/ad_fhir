@@ -10,7 +10,7 @@
 
 // WebSocket接続先のURL（wss:// を使用することでセキュアな接続）
 const socketUrl = "wss://demo-weborca.cloud.orcamo.jp/ws";
-
+const apiServer = "demo-weborca.cloud.orcamo.jp";
 // ユーザーアカウント情報
 const username = "ormaster";
 const password = "03b53f8cbb9904ba537c24e84d07f21cebaa381053aadc5e1a13f6c6e157734d";
@@ -43,15 +43,16 @@ const startWS = () => {
               //console.log('[keyFile]\n'+keyFile)
               
               let options = {
-                ca : rootCertificate,     // ルート証明書
+                ca_cert : rootCertificate,     // ルート証明書
                 cert : certificate,     // サーバー証明書を指定
-                key: keyFile,        // 秘密鍵を指定
+                cert_key : keyFile,        // 秘密鍵を指定
                 passphrase : 'OMZoDP7hN0', // 又は、pfxの指定
-                headers: {
-                  // 基本認証ヘッダーを追加
-                  //Authorization: `Basic ${btoa(`${username}:${password}`)}`
-                  Authorization: `Bearer ${password}}`
-                }
+                api_user : username,
+                api_key : password,
+                api_server : apiServer,
+                api_port : 443,
+                use_ssl : true,
+                use_weborca : true
               }
               
               socket = new WebSocket(socketUrl, JSON.stringify(options));
