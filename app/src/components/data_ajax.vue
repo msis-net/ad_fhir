@@ -1,10 +1,12 @@
 <template>
     <div>
       <nav>
-        <button role="button" @click="openMenu()">
-          Read Server CSV
+        <button role="button" @click="xhrTEST()">
+          xhrTEST
         </button>
-        
+        <button role="button" @click="fetchTEST()">
+          fetch CSV
+        </button>
         <button role="button" @click="CallPerformScript()">
           Call PerformScript
         </button>
@@ -16,8 +18,10 @@
     </div>
   </template>
   
-  <script setup lang="ts" is:inline>
+  <script setup lang="ts" client:load>
+
 const getAcceptList = () => {
+      console.log('yyyymmdd:')
       let xhr = new XMLHttpRequest()
       xhr.open('GET', '/orca/acceptlstv2/2024/acceptlstv2_20240110.json', true)
       xhr.onreadystatechange = function() {
@@ -54,16 +58,18 @@ const CallPerformScript = () => {
     return val
  }
 
-  let KEN_All:any = []
-  const openMenu = () => {
+  
+  const xhrTEST = () => {
       let xhr = new XMLHttpRequest()
       xhr.open('GET', 'utf_all.csv', true)
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            console.log('xhr.status',xhr.responseText )
+            //console.log('xhr.status',xhr.responseText )
+            let KEN_All:any = []
             KEN_All = SetData( xhr.responseText )
-            alert(KEN_All.length)
+            console.log(KEN_All )
+            alert(Object.keys(KEN_All).length)
           } else {
             console.log('Error!')
           }
@@ -74,9 +80,23 @@ const CallPerformScript = () => {
         xhr.send(null)
   }
 
+  const fetchTEST = () => {
+    const csvfile = "./utf_all.csv";
+    fetch(csvfile) //読込
+    .then(response => response.text())
+    .then(csvdata  => {　//事後処理
+      console.log('csvdata:'+csvdata)
+      let KEN_All:any = []
+      KEN_All = SetData( csvdata )
+      //console.log(KEN_All )
+      alert(Object.keys(KEN_All).length)
+    });
+  }
+
   function SetData( basedata:any ){
     let array =[]
-    let data = basedata.split('\r\n')
+    let data = basedata.split(/\r\n|\n/)
+    console.log(basedata.length,data.length )
     for (let i in data){
       let line = data[i].replace(/\"/g, '')
       let tmp = line.split(',')

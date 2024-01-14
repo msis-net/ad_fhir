@@ -1,8 +1,5 @@
 <template>
   <div>
-    <button role="button" @click="Easy()">
-      Easy WebSocket
-    </button>
     <button role="button" @click="startWS()">
           start WebSocket
     </button>
@@ -25,17 +22,17 @@ const keyFilePath = "/002739__JP_u00000218_client1349.pem";
 
 //WebScoketオブジェクト
 let socket;
+
 const startWS = () => {
   console.log('Starting...')
   //ルート証明書
   fetch(rootCertificatePath)
     .then(response => response.text())
     .then(rootCertificate  => {
-      //console.log('[rootCertificate]\n'+rootCertificate)
+      //TLS証明書
       fetch(certificatePath)
         .then(response => response.text())
         .then(certificate  => {
-          //console.log('[certificate]\n'+certificate)
           //秘密鍵
           fetch(keyFilePath)
             .then(response => response.text())
@@ -50,8 +47,6 @@ const startWS = () => {
                 cert : certificate,     // サーバー証明書を指定
                 cert_key : keyFile,        // 秘密鍵を指定
                 passphrase : 'OMZoDP7hN0', // 又は、pfxの指定
-                requestCert:true,
-                rejectUnauthorized: true,
                 api_user : username,
                 api_key : password,
                 api_server : apiServer,
@@ -60,24 +55,14 @@ const startWS = () => {
                 use_weborca : true
               }
               
-              
-              socket = new WebSocket(socketUrl)
-              // 接続
-              // 接続
-              socket.addEventListener('open',function(e){
-                  console.log('Socket 接続成功');
-                  
-              });
-                
-              socket.onopen = event => { 
+              socket = new WebSocket(socketUrl, JSON.stringify(options));
+
+
+              // WebSocket接続時の処理
+              socket.onopen = event => {
                 console.log("WebSocket connection opened:", event);
               };
 
-              // メッセージ受信時の処理
-            socket.onmessage = event => {
-              console.log("Message received:", event.data);
-              // 受信したメッセージに対する処理を追加
-            };
               
             })
         })
@@ -92,23 +77,7 @@ const startWS = () => {
         
     })*/
 }
-
-
-const Easy = () => {
-  console.log('Starting...')
-  socket = new WebSocket('ws://127.0.0.1:5000/');
-  // 接続
-  // WebSocket接続時の処理
-  socket.onopen = event => {
-                console.log("WebSocket connection opened:", event);
-              };
-  
-  // エラー発生時の処理
-  socket.onerror = event => {
-              console.error("WebSocket error:", event);
-            };
-
-}
+      
 </script>
 
 <style>

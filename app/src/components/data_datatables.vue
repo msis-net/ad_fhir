@@ -2,7 +2,10 @@
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net';
 
+
 DataTable.use(DataTablesCore);
+
+
 
 const columns = [
   { data: 'name' },
@@ -12,12 +15,26 @@ const columns = [
   { data: 'start_date' },
   { data: 'salary' },
 ];
+
+import { ref } from 'vue';
+const count = ref(0);
+
+const startWS = () => {
+  
+  console.log('count:'+{ref})
+}
 </script>
 
 <template>
   <div>
-    <h1>Ajax data source table</h1>
+    <h1>Ajax data source table{{count}}</h1>
     <h2>DataTables + Vue3 example</h2>
+    <button @click="count++" class="upload">
+      Increment(+)
+    </button>
+    <button @click="startWS" class="upload">
+      Increment(+)
+    </button>
     <p>
       In this example the <code>datatables.net-vue3</code> package is used to
       load JSON data and display it in an interactive table. In this case we use
