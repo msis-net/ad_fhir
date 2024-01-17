@@ -1,0 +1,117 @@
+---
+import Layout from "@layouts/Layout.astro";
+import App from '@components/tutorial_v/App.vue'
+import Ajax from "@components/integration/ajax.vue"
+import Datatables from "@components/integration/datatables.vue";
+import Draggable from "@components/integration/draggable.vue";
+import Counter from '@components/integration/counter.vue';
+import ColorPucker from "@components/integration/ColorPucker.vue";
+
+import Tute01 from "@components/tutorial_v/tute01.vue";
+import Tute02 from "@components/tutorial_v/tute02.vue";
+
+import Nano01 from "@components/tutorial_v/nano01.vue";
+
+---
+
+<Layout title="integration" path = "../" page="vue">
+    <main class="app-main"> <!--begin::App Content Header-->
+        <div class="app-content-header"> <!--begin::Container-->
+            <div class="container-fluid"> <!--begin::Row-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="mb-0">Propsの設定方法</h3>
+                        <Tute01 message="Annyys" name="名前１" />
+                        <Tute01 message="Annyys2" name="名前２" />
+                        <Tute01 message="Annyys3" name="名前３" />
+                    </div>
+                    <div class="col-sm-12">
+                        <h3 class="mb-0">数値を渡したい場合</h3>
+                        <Tute02 price="1000" />
+                        <Nano01 postId="Vue.astro" client:load/>
+                    </div>
+                    
+                </div> <!--end::Row-->
+            </div> <!--end::Container-->
+        </div>
+        <div class="app-content"> <!--begin::Container-->
+            <div class="container-fluid"> <!--begin::Row-->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <App client:load/>
+                            </div>
+                        </div> <!-- /.card -->
+                        <div class="card mb-4">
+                            <div class="card-header border-0">
+                                <h3 class="card-title">Counter</h3>
+                            </div>
+                            <div class="card-body">
+                                <Counter client:idle/>
+                            </div>
+                        </div> <!-- /.card -->
+                    </div> <!-- /.col-md-6 -->
+
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header border-0">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="card-title">Online Store Visitors</h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <Draggable client:idle/>
+                                <Ajax client:load/>
+                                
+                            </div>
+                        </div> <!-- /.card -->
+                        <div class="card mb-4">
+                            <div class="card-header border-0">
+                                <h3 class="card-title">Counter</h3>
+                            </div>
+                            <div class="card-body">
+                                <Counter client:idle/>
+                            </div>
+                        </div> <!-- /.card -->
+                    </div> <!-- /.col-md-6 -->
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header border-0">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="card-title">Color Picker</h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ColorPucker client:load/>
+                            </div>
+                        </div> <!-- /.card -->
+                        <div class="card">
+                            <div class="card-header border-0">
+                                <h3 class="card-title">Online Store Overview</h3>
+                                <div class="card-tools"> <a href="#" class="btn btn-sm btn-tool"> <i class="bi bi-download"></i> </a> <a href="#" class="btn btn-sm btn-tool"> <i class="bi bi-list"></i> </a> </div>
+                            </div>
+                            <div class="card-body">
+                                
+                            </div>
+                        </div>
+                    </div> <!-- /.col-md-6 -->
+                </div> <!--end::Row-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <Datatables client:visible/>
+                    </div> <!-- /.col-md-6 -->
+                </div> <!--end::Row-->       
+            </div> <!--end::Container-->
+        </div> <!--end::App Content-->
+    </main> <!--end::App Main--> <!--begin::Footer-->
+
+</Layout>
+
+<script is:inline>
+    function CallFileMaker(str){
+        console.log("CallFileMaker:"+str)
+        return ""
+    }
+    
+  </script>

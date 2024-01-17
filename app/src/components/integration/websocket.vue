@@ -61,7 +61,7 @@ const startWS = () => {
               }
               
               
-              socket = new WebSocket(socketUrl)
+              socket = new WebSocket(socketUrl,JSON.stringify(options))
               // 接続
               // 接続
               socket.addEventListener('open',function(e){

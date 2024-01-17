@@ -1,0 +1,48 @@
+---
+import Layout from "@layouts/Layout.astro"
+
+import AdminsReact from '@components/nanostores/AdminsReact'
+import AdminsVue from '@components/nanostores/AdminsVue.vue'
+
+
+
+
+---
+
+<Layout title="integration" path = "../" page="vue">
+
+    <main class="app-main"> <!--begin::App Content Header-->
+        <div class="app-content-header"> <!--begin::Container-->
+            <div class="container-fluid"> <!--begin::Row-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="mb-0">Nano Store</h3>
+                        <AdminsReact client:load />
+                        <AdminsVue client:load />
+                    </div>
+                </div> <!--end::Row-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1>Astro(This is!)</h1>
+                        <button id="countUp">Count(+)</button>
+                        <div>check the console</div>
+                    </div>
+                </div> <!--end::Row-->
+            </div> <!--end::Container-->
+        </div>
+
+    </main> <!--end::App Main--> <!--begin::Footer-->
+</Layout>
+
+<script>
+    import { counter, increaseCounter } from '@store/counter.js';
+    
+    const button:any = document.querySelector('#countUp');
+
+    button.addEventListener('click', () => {
+        increaseCounter()
+        //alert(JSON.stringify(counter))
+        console.log(JSON.stringify(counter))
+    });
+   
+</script>

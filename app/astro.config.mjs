@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import vue from "@astrojs/vue";
 import relativeLinks from 'astro-relative-links';
 
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,5 +16,5 @@ export default defineConfig({
     port: 1234,
     host: true
   },
-  integrations: [vue(), relativeLinks()]
+  integrations: [vue(), relativeLinks(), react()]
 });

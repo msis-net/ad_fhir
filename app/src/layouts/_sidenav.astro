@@ -49,8 +49,8 @@ const htmlPath = convertPathToHtml(path);
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a
-                href={htmlPath + "/index1"}
-                class:list={["nav-link", page === "index1" && "active"]}
+                href={htmlPath + "/"}
+                class:list={["nav-link", page === "index" && "active"]}
               >
                 <i class="nav-icon bi bi-circle"></i>
                 <p>Dashboard v1</p>
@@ -76,6 +76,49 @@ const htmlPath = convertPathToHtml(path);
             </li>
           </ul>
         </li>
+
+        <li class:list={["nav-item", mainPage === "integration" && "menu-open"]}>
+          <a
+            href="#"
+            class:list={["nav-link", mainPage === "integration" && "active"]}
+          >
+          <i class="bi bi-code-square"></i>
+            <p>
+              Integration
+              <i class="nav-arrow bi bi-chevron-right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a
+                href={htmlPath + "/integration/vue.html"}
+                class:list={["nav-link", page === "integration" && "active"]}
+              >
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Vue3</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+              href={htmlPath + "/integration/react.html"}
+              class:list={["nav-link", page === "integration" && "active"]}
+              >
+                <i class="nav-icon bi bi-circle"></i>
+                <p>React</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+              href={htmlPath + "/integration/nanostore.html"}
+              class:list={["nav-link", page === "integration" && "active"]}
+              >
+                <i class="nav-icon bi bi-circle"></i>
+                <p>NanoStore</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
         <li class:list={["nav-item", mainPage === "widgets" && "menu-open"]}>
           <a
             href="#"

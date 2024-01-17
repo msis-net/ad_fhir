@@ -20,9 +20,12 @@ import { ref } from 'vue';
 const count = ref(0);
 
 const startWS = () => {
-  
-  console.log('count:'+{ref})
+  count.value++
+  console.log('count:'+JSON.stringify( count) )
 }
+
+
+
 </script>
 
 <template>
@@ -45,7 +48,7 @@ const startWS = () => {
 
     <DataTable
       :columns="columns"
-      ajax="data.json"
+      ajax="../data.json"
       class="display"
       width="100%"
     >

@@ -1,0 +1,33 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Counter from "@components/turotiai_r/Counter"
+const someProps = {
+	count: 0,
+};
+---
+
+<Layout title="integration" path = "../" page="react">
+    <main class="app-main"> <!--begin::App Content Header-->
+        <div class="app-content-header"> <!--begin::Container-->
+            <div class="container-fluid"> <!--begin::Row-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="mb-0">Nano Store</h3>
+                        <Counter {...someProps} client:only="react">
+                            <h1>Hello, React!</h1>
+                        </Counter>
+                    </div>
+                </div> <!--end::Row-->
+            </div> <!--end::Container-->
+        </div>
+
+    </main> <!--end::App Main--> <!--begin::Footer-->
+</Layout>
+
+<script is:inline>
+    function CallFileMaker(str){
+        console.log("Load OK")
+
+    }
+    
+  </script>
