@@ -25,8 +25,9 @@ $ docker exec -it [Tabキーでコンテナ名が補完] bash
 
 #[docker-compose.yml]のnpm run devを有効
 ===
+#起動コマンド
 command: /bin/sh -c 'npm run dev'
-#自動起動設定
+#Dockerの起動に合わせて自動起動設定
 restart: always
 
 #コンテナ再起動
