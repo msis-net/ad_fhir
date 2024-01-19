@@ -6,8 +6,8 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  compressHTML: false,
-  //HTMLを圧縮しない
+  compressHTML: false, //HTMLを圧縮しない
+  output: 'static',
   build: {
     // Example: Generate `page.html` instead of `page/index.html` during build.
     format: 'file'
