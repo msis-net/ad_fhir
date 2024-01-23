@@ -39,7 +39,6 @@
     "typescript": "^5.3.3",
     "v-calendar": "^3.1.2",
     "vue": "^3.4.6",
-    "we": "^0.3.2",
     "ws": "^8.16.0"
   },
   "devDependencies": {
