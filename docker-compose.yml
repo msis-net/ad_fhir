@@ -7,7 +7,7 @@ services:
       - ./app:/app
     environment:
       - WATCHPACK_POLLING=true
-    #npm ci語に有効にする
+    #npm ciで環境構築後にいづれかを有効にする
     #command: /bin/sh -c 'npm run dev'
     #command: /bin/sh -c 'npm run start'
     #command: /bin/sh -c 'npm run preview'
