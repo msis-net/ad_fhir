@@ -47,6 +47,11 @@ const CallPerformScript = () => {
 
 <template>
   <h1>Vue 3 入門</h1>
+  <div>
+    <a href="https://reffect.co.jp/vue/vue-js-components" target="_blank" rel="noopener noreferrer">
+      参考サイト
+    </a>
+  </div>
   <button role="button" @click="CallPerformScript()">
           Call PerformScript
         </button>

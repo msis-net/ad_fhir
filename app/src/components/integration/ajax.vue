@@ -23,7 +23,7 @@
 const getAcceptList = () => {
       console.log('yyyymmdd:')
       let xhr = new XMLHttpRequest()
-      xhr.open('GET', '/orca/acceptlstv2/2024/acceptlstv2_20240110.json', true)
+      xhr.open('GET', '/orca/acceptlstv2/2024/acceptlstv2_20240122.json', true)
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {

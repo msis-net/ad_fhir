@@ -8,18 +8,26 @@ import Counter from '@components/integration/counter.vue';
 import ColorPucker from "@components/integration/ColorPucker.vue";
 
 import Tute01 from "@components/tutorial_v/tute01.vue";
-import Tute02 from "@components/tutorial_v/tute02.vue";
 
-import Nano01 from "@components/tutorial_v/nano01.vue";
+import Vcalendar from "@components/vue/vcalendar.vue";
+import PersisVue from "@components/nanostores/persisVue.vue"
 
+export const prerender = true;
 ---
-
+<script>
+    import { useStore } from '@nanostores/vue';
+    import { statusStore } from '@store/loginStore';
+    const status = useStore(statusStore);
+    console.log("vue",status.value)
+    //alert(status.value)
+</script>
 <Layout title="integration" path = "../" page="vue">
     <main class="app-main"> <!--begin::App Content Header-->
         <div class="app-content-header"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Row-->
                 <div class="row">
                     <div class="col-sm-12">
+                        <PersisVue client:only/>
                         <h3 class="mb-0">Propsの設定方法</h3>
                         <Tute01 message="Annyys" name="名前１" />
                         <Tute01 message="Annyys2" name="名前２" />
@@ -27,8 +35,14 @@ import Nano01 from "@components/tutorial_v/nano01.vue";
                     </div>
                     <div class="col-sm-12">
                         <h3 class="mb-0">数値を渡したい場合</h3>
-                        <Tute02 price="1000" />
-                        <Nano01 postId="Vue.astro" client:load/>
+                    </div>
+                    
+                </div> <!--end::Row-->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <Vcalendar />
+                    </div>
+                    <div class="col-sm-4">
                     </div>
                     
                 </div> <!--end::Row-->
@@ -83,7 +97,7 @@ import Nano01 from "@components/tutorial_v/nano01.vue";
                                 </div>
                             </div>
                             <div class="card-body">
-                                <ColorPucker client:load/>
+                                <ColorPucker />
                             </div>
                         </div> <!-- /.card -->
                         <div class="card">
@@ -113,5 +127,5 @@ import Nano01 from "@components/tutorial_v/nano01.vue";
         console.log("CallFileMaker:"+str)
         return ""
     }
-    
-  </script>
+</script>
+

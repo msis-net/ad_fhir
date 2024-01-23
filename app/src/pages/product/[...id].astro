@@ -1,0 +1,11 @@
+---
+import LayoutLogin from "@layouts/LayoutLogin.astro";
+import { getProduct } from "@lib/getProduct";
+const user = await getProduct(Astro.params.id);
+console.log(user);
+
+---
+
+<LayoutLogin title="Auth Denied">
+  <div>{getProduct.name}</div>
+</LayoutLogin>

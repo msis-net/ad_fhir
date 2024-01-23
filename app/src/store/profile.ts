@@ -1,11 +1,3 @@
-import { map, atom } from 'nanostores'
-export interface ProfileValue {
-  name: string,
-  email?: string
-}
+import { persistentAtom } from '@nanostores/persistent'
 
-export const $profile = map<ProfileValue>({
-  name: 'anonymous'
-})
-
-export const count = atom<number>(0)
+export const locale = persistentAtom('locale', 'en')

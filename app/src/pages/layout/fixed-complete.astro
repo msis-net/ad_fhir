@@ -1,14 +1,15 @@
 ---
 import Layout from "@layouts/Layout.astro";
+const label = 'fixed-complete'
 ---
 
-<Layout title="layout" path = "../" page="fixed-complete">
+<Layout title="layout" path = "../" page={label}>
     <main class="app-main"> <!--begin::App Content Header-->
         <div class="app-content-header"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Row-->
                 <div class="row">
                     <div class="col-sm-8">
-                        <h3 class="mb-0">Fixed Complete <small>(Sidebar, Header & Footer)</small></h3>
+                        <h3 class="mb-0">{label} <small>(Sidebar, Header & Footer)</small></h3>
                     </div>
                     <div class="col-sm-4">
                         <ol class="breadcrumb float-sm-end">

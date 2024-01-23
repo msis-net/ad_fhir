@@ -1,0 +1,10 @@
+{
+	"account" : "admin",
+	"depid" : "201",
+	"div" : "管理者",
+	"kanri" : "2023/12/05 17:36:37",
+	"name" : "管太",
+	"role" : "admin",
+	"sid" : "1",
+	"timeout" : "36000"
+}

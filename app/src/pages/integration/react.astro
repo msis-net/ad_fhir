@@ -4,6 +4,10 @@ import Counter from "@components/turotiai_r/Counter"
 const someProps = {
 	count: 0,
 };
+
+import PersisVue from "@components/nanostores/persisVue.vue"
+
+export const prerender = true;
 ---
 
 <Layout title="integration" path = "../" page="react">
@@ -16,6 +20,7 @@ const someProps = {
                         <Counter {...someProps} client:only="react">
                             <h1>Hello, React!</h1>
                         </Counter>
+                        <PersisVue client:only/>
                     </div>
                 </div> <!--end::Row-->
             </div> <!--end::Container-->

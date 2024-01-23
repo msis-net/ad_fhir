@@ -4,10 +4,11 @@ import Layout from "@layouts/Layout.astro"
 import AdminsReact from '@components/nanostores/AdminsReact'
 import AdminsVue from '@components/nanostores/AdminsVue.vue'
 
+import PersisVue from "@components/nanostores/persisVue.vue"
 
-
-
+export const prerender = true;
 ---
+
 
 <Layout title="integration" path = "../" page="vue">
 
@@ -15,34 +16,81 @@ import AdminsVue from '@components/nanostores/AdminsVue.vue'
         <div class="app-content-header"> <!--begin::Container-->
             <div class="container-fluid"> <!--begin::Row-->
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <h3 class="mb-0">Nano Store</h3>
                         <AdminsReact client:load />
                         <AdminsVue client:load />
                     </div>
-                </div> <!--end::Row-->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h1>Astro(This is!)</h1>
-                        <button id="countUp">Count(+)</button>
-                        <div>check the console</div>
+                    <div class="col-sm-6">
+                        <h3>Astro(This is!)</h3>
+                        <button id="countUp1">countUp1</button>
+                        <button id="countUp2">countUp2</button>
                     </div>
                 </div> <!--end::Row-->
             </div> <!--end::Container-->
         </div>
-
+        <div class="app-content-header"> <!--begin::Container-->
+            <div class="container-fluid"> <!--begin::Row-->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button id="addbtn">AddElement</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>Astro(This is!)</h3>
+                        <PersisVue client:load/>
+                    </div>
+                </div> <!--end::Row-->
+            </div> <!--end::Container-->
+        </div>
     </main> <!--end::App Main--> <!--begin::Footer-->
 </Layout>
 
-<script>
-    import { counter, increaseCounter } from '@store/counter.js';
-    
-    const button:any = document.querySelector('#countUp');
+<script is:inline>
+    const addbtn = document.querySelector('#addbtn');
 
-    button.addEventListener('click', () => {
+    function CallFileMaker(str){
+      console.log("CallFileMaker:"+str)
+      
+    }
+    addbtn.addEventListener('click', () => {
+        console.log("addEventListener")
+        CallFileMaker("addEventListener")
+    });
+</script>
+
+<script>
+    
+    import { counter, increaseCounter } from '@store/counter';
+    
+    const button1:any = document.querySelector('#countUp1');
+    const button2:any = document.querySelector('#countUp2');
+    
+    declare var FileMaker: any;//index.d.tsに記入しても良い
+    button1.addEventListener('click', () => {
         increaseCounter()
         //alert(JSON.stringify(counter))
-        console.log(JSON.stringify(counter))
+        console.log('increaseCounter:',JSON.stringify(counter))
+        try{
+            FileMaker.PerformScriptWithOption ("AlertAddress", JSON.stringify(counter), "0");
+        }catch{
+            console.log('PerformScriptWithOption')
+        }
     });
-   
+    
+    button2.addEventListener('click', () => {
+        FMcall()
+        //alert(JSON.stringify(counter))
+        //console.log(JSON.stringify(counter))
+    });
+
+    function FMcall(){
+        console.log('FMcall:')
+        try{
+            FileMaker.PerformScriptWithOption ("AlertAddress", "オプション引数", "0");
+        }catch{
+            console.log('PerformScriptWithOption')
+        }
+    }
+
+
 </script>

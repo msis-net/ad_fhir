@@ -1,5 +1,5 @@
 ---
-import {convertPathToHtml} from "../utils/index.js";
+import {convertPathToHtml} from "@utils/index.js";
 const {path, mainPage, page} = Astro.props;
 const htmlPath = convertPathToHtml(path);
 ---
@@ -175,6 +175,18 @@ const htmlPath = convertPathToHtml(path);
             </p>
           </a>
           <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a
+                href={htmlPath + "/layout/calendar.html"}
+                class:list={[
+                  "nav-link",
+                  page === "calendar" && "active",
+                ]}
+              >
+                <i class="nav-icon bi bi-circle"></i>
+                <p>Calendar</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a
                 href={htmlPath + "/layout/unfixed-sidebar.html"}

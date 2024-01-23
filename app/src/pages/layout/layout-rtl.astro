@@ -31,7 +31,13 @@ import Layout from "@layouts/Layout.astro";
                                 <div class="card-tools"> <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse" title="Collapse"> <i data-lte-icon="expand" class="bi bi-plus-lg"></i> <i data-lte-icon="collapse" class="bi bi-dash-lg"></i> </button> <button type="button" class="btn btn-tool" data-lte-toggle="card-remove" title="Remove"> <i class="bi bi-x-lg"></i> </button> </div>
                             </div>
                             <div class="card-body">
-                                Start creating your amazing application!
+                                <div id="t1">
+                                    <label>Name：</label>
+                                    <input type="text" id="name">
+                                    <p id="result"></p>
+                                </div>
+                                <button id="button1">button1</button>
+                                <button id="button2">button2</button>
                             </div> <!-- /.card-body -->
                             <div class="card-footer">Footer</div> <!-- /.card-footer-->
                         </div> <!-- /.card -->
@@ -41,3 +47,28 @@ import Layout from "@layouts/Layout.astro";
         </div> <!--end::App Content-->
     </main> <!--end::App Main--> <!--begin::Footer-->
 </Layout>
+
+<script>
+    const target:any = document.querySelector('#t1');
+    const name:any = document.querySelector('#name');
+    const result:any = document.querySelector('#result');
+    name.onchange = function() {
+      result.textContent = name.value; 
+    };
+
+    const button1:any = document.querySelector('#button1');
+    button1.addEventListener('click', () => {
+        //target.removeChild(name);
+        while(target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
+    });
+    const button2:any = document.querySelector('#button2');
+    button2.addEventListener('click', () => {
+        
+        //target.removeChild(name);
+        while(target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
+    });
+  </script>

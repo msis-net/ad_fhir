@@ -1,0 +1,30 @@
+---
+import LayoutLogin from "@layouts/LayoutLogin.astro";
+
+import { useStore } from '@nanostores/vue';
+import { userStatus, addUser } from '@store/userStatus';
+
+import { getAuthuser } from "@lib/getAuthuser";
+const authdata = await getAuthuser(Astro.params.id);
+
+if (authdata) {
+  　//認証データをstoreに保存
+    const status = useStore(userStatus)
+    addUser(authdata)
+
+    console.log(status)
+}else{
+  //認証データが見つからないい
+  return new Response("認証できませんでした。", {
+    status: 401,
+    statusText: "Auth denied",
+  });
+}
+---
+
+<LayoutLogin title="Product - Astro">
+  <h1> </h1>
+</LayoutLogin>
+<script>
+  window.location.href = "/";
+</script>
