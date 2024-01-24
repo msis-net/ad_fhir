@@ -24,5 +24,6 @@ export async function getAuthuser(id: string | undefined) {
   }
   const user = (await response.json()) as AuthData;
   console.log(user)
+  sessionStorage.setItem('user', user)
   return user;
 }

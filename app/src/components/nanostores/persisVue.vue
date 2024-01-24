@@ -10,7 +10,7 @@ console.log(status.value)
 
 const toggleLogin = () => {
     console.log('toggleLogin:')
-	  statusStore.set(status.value === 'loggedIn' ? 'loggedOut' : 'loggedIn');
+	  statusStore.set(status.value === 'loggedIn' ? 'Other' : 'loggedIn');
   }
 
 </script>

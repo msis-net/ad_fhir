@@ -1,0 +1,18 @@
+---
+import Head from "@layouts/_head.astro";
+const { title, path } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<Head path={path} title={title} isRtl={false}/>
+		<!-- isRtl:default(false) -->
+	</head>
+	<body class="layout-fixed sidebar-expand-lg sidebar-mini bg-body-tertiary"> 
+		<div class="app-wrapper">
+			<slot />
+		</div>
+	</body>
+</html>
+

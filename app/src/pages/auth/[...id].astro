@@ -1,30 +1,68 @@
 ---
 import LayoutLogin from "@layouts/LayoutLogin.astro";
 
-import { useStore } from '@nanostores/vue';
-import { userStatus, addUser } from '@store/userStatus';
-
-import { getAuthuser } from "@lib/getAuthuser";
-const authdata = await getAuthuser(Astro.params.id);
-
-if (authdata) {
-  　//認証データをstoreに保存
-    const status = useStore(userStatus)
-    addUser(authdata)
-
-    console.log(status)
-}else{
-  //認証データが見つからないい
-  return new Response("認証できませんでした。", {
-    status: 401,
-    statusText: "Auth denied",
-  });
-}
 ---
 
-<LayoutLogin title="Product - Astro">
-  <h1> </h1>
+<LayoutLogin title="auth" path = "../">
+  <div class="container">
+    <button id="addbtn">Add Strage2</button>
+    <button id="clearbtn">Clear Strage2</button>
+  </div>
+  <astro-heart>
+    <button aria-label="Heart">💜</button> × <span>0</span>
+  </astro-heart>
 </LayoutLogin>
+
+
+
 <script>
-  window.location.href = "/";
+
+</script>
+
+<script is:inline lang="ts">
+
+//
+  console.log(sessionStorage)
+  let tmp = sessionStorage.getItem("AuthData");
+  const authdata = JSON.parse(tmp)
+  console.log("authdata",authdata)
+  console.log("name",authdata.name)
+
+  const addbtn = document.querySelector('#addbtn');
+  const clearbtn = document.querySelector('#clearbtn');
+  
+  addbtn.addEventListener('click', () => {
+    sessionSet('name', '田中')
+    console.log(sessionStorage)
+  });
+
+  clearbtn.addEventListener('click', () => {
+    sessionClear()
+  });
+
+  function sessionSet( key , value ) {
+    console.log(value)
+    jsonobj = JSON.parse(value)
+    sessionStorage.setItem( key , value )
+    return sessionStorage;
+  }
+
+  function sessionRemove( key ) {
+    sessionStorage.removeItem( key);
+    console.log(key)
+    return sessionStorage;
+  }
+
+  function sessionClear( key , value ) {
+  
+    sessionStorage.clear();
+    console.log(key,value)
+    return sessionStorage;
+  }
+
+function CallFileMaker(str){
+  console.log("CallFileMaker:"+str)
+  
+}
+
 </script>

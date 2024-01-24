@@ -25,7 +25,6 @@ const startWS = () => {
 }
 
 
-
 </script>
 
 <template>
@@ -48,7 +47,7 @@ const startWS = () => {
 
     <DataTable
       :columns="columns"
-      ajax="../data.json"
+      ajax="../tmp/data.json"
       class="display"
       width="100%"
     >
