@@ -1,57 +1,36 @@
-<script setup >
-import { reactive } from 'vue';
-
-const props = defineProps({
-    date: String,
-    name: String
-})
-
+<script setup lang="ts">
+import { ref  } from 'vue';
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net';
+
+const props = defineProps({
+  date: String,
+  name: String
+})
+ 
 DataTable.use(DataTablesCore);
+ 
+const data = ref([
+  [13, 14],
+]);
 
-console.log('props.date',props.date)
 
-const columns = [
-  { data: 'name' },
-  { data: 'position' },
-  { data: 'office' },
-  { data: 'extn' },
-  { data: 'start_date' },
-  { data: 'salary' },
-];
+//reactiveサンプル
+const push = () => {
+  data.value.push( [5,6] );
+  console.log(data)
+}
 
-const data = () =>{
-  const jsonfile = "/tmp/data.json";
-  fetch(jsonfile) //読込
-  .then(response => response.text())
-    .then(data  => { //事後処理
-      console.log('data:'+data)
-      data
-    });
+const initialize = () => {
+  console.log("on load..")
+  data.value.push( [1,2] );
 };
-
-const getAcceptList = () => {
-    //const jsonfile = "/orca/acceptlstv2/2024/acceptlstv2_20240124.json";
-    const jsonfile = "/tmp/data.json";
-    
-    fetch(jsonfile) //読込
-    .then(response => response.text())
-    .then(data  => { //事後処理
-      console.log('data:'+data)
-      //alert(Object.keys(data).length)
-      this.data = data
-      return data
-    });
-  }
-
-
+initialize();
 </script>
-
-
+ 
 <template>
-    <button role="button" @click="getAcceptList()">
-    {{ props.date }}
+   <button role="button" @click="push()">
+    {{props.name}}
     </button>
     <DataTable :data="data" class="display">
         <thead>
