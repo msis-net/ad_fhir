@@ -1,5 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Datepicker from "@components/vue/datepicker.vue";
 const label = 'Dashboard v2'
 const path = "."
 ---
@@ -11,6 +12,7 @@ const path = "."
                 <div class="row">
                     <div class="col-sm-6">
                         <h3 class="mb-0">{label}</h3>
+                        <Datepicker @changeDate="changeDate" client:load />
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
