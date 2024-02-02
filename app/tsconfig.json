@@ -29,9 +29,6 @@
       "@store/*": [
         "src/store/*"
       ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
       "@lib/*": [
         "src/lib/*"
       ],

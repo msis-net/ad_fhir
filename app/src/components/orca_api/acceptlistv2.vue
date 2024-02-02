@@ -111,7 +111,8 @@ const columns = [
   { data: 'Acceptance_Time' },
   { data: 'Patient_Information.Patient_ID'},
   { data: function (row: any, _type: any, _val: any, _meta: any) {
-      return '<i class="bi bi-caret-right-square"></i> '+row.Patient_Information.WholeName
+      //return '<a href="./ehr/ehr_index?id='+`${+row.Patient_Information.Patient_ID}`+'"><i class="bi bi-play-btn-fill"></i></a> '+row.Patient_Information.WholeName
+      return '<a href="./ehr/ehr_index?id='+`${+row.Patient_Information.Patient_ID}`+'"><i class="bi bi-play-btn-fill"></i></a> '+row.Patient_Information.WholeName
     }
   },
   {

@@ -11,16 +11,16 @@ dayjs.locale("ja");
 onMounted(() => {
   //sessionStorage.isLogginから初回ログインかどうかを判定し
   if(sessionStorage.isLoggin){
-    console.log("datepicker:keep",date.value)
+    //console.log("datepicker:keep",date.value)
     
   }else{
     const ymd:any = dayjs().format('YYYY-MM-DD')
-    console.log("datepicker:ymd",currentDate )
+    //console.log("datepicker:ymd",currentDate )
     currentDate.set(ymd)
     sessionStorage.setItem( "isLoggin" , String(new Date()) )
   }
 })
-console.log("datepicker:currentDate",currentDate )
+//console.log("datepicker:currentDate",currentDate )
 const changeDate = (event:any) => {
   const ymd:any = dayjs(event.target.value).format('YYYY-MM-DD')
   currentDate.set(ymd)
@@ -28,7 +28,7 @@ const changeDate = (event:any) => {
 }
 
 async function app_init() {
-  const envfile = `./orca/env/sessionStrage.json`
+  const envfile = `/orca/env/sessionStrage.json`
   await fetch(envfile)
     .then(response => response.json())
     .then(result => {
