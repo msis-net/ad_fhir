@@ -9,10 +9,10 @@ import ColorPucker from "@components/integration/ColorPucker.vue";
 
 import Tute01 from "@components/tutorial_v/tute01.vue";
 
-import Vcalendar from "@components/vue/vcalendar.vue";
 import PersisVue from "@components/nanostores/persisVue.vue"
+import Qalendar from "@components/vue/qalendar.vue";
 
-export const prerender = true;
+
 ---
 <script>
     import { useStore } from '@nanostores/vue';
@@ -40,7 +40,7 @@ export const prerender = true;
                 </div> <!--end::Row-->
                 <div class="row">
                     <div class="col-sm-4">
-                        <Vcalendar />
+                        <Qalendar client:only="vue"/>
                     </div>
                     <div class="col-sm-4">
                     </div>
@@ -128,4 +128,7 @@ export const prerender = true;
         return ""
     }
 </script>
+<style>
+    @import "qalendar/dist/style.css";
+</style>
 
