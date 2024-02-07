@@ -1,34 +1,28 @@
-<script>
-import { ref } from 'vue'
-import { setupCalendar,Calendar, DatePicker } from 'v-calendar';
-import 'v-calendar/dist/style.css';
-
-const date = ref(new Date())
-export default {
-  components: {
-    setupCalendar,
-    Calendar,
-    DatePicker,
-  },
-  data() {
-    return {
-      date: date,
-    };
-  },
-}
-
-</script>
-
 <template>
-    <!-- Calendar transparent borderless /-->
-    <Calendar v-model="date"/>
+  <b-row>
+    <b-col md="auto">
+      <b-calendar v-model="value" @context="onContext" locale="en-US"></b-calendar>
+    </b-col>
+    <b-col>
+      <p>Value: <b>'{{ value }}'</b></p>
+      <p class="mb-0">Context:</p>
+      <pre class="small">{{ context }}</pre>
+    </b-col>
+  </b-row>
 </template>
 
-<style>
-.my-calendar .vc-weekday-1{/*class指定したカレンダのみ*/
-  color: #ff0000;
-} 
-.vc-container .vc-weekday-7 {/*全カレンダ共通*/
-  color: #0000ff;
-}
-</style>
+<script>
+  export default {
+    data() {
+      return {
+        value: '',
+        context: null
+      }
+    },
+    methods: {
+      onContext(ctx) {
+        this.context = ctx
+      }
+    }
+  }
+</script>

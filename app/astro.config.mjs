@@ -11,5 +11,10 @@ export default defineConfig({
   adapter: node({
     mode: "standalone"
   }),
-  integrations: [vue(), react()]
+  integrations: [vue(), react()],
+  compressHTML: false, //HTMLを圧縮しない 
+  server: {
+    port: 1234,
+    host: true
+  },
 });

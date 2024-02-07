@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { DatePicker } from "qalendar";
+import { ref,reactive, onMounted } from 'vue';
+import { Qualendar, DatePicker } from "qalendar";
 //コンポーネント間で共有する日付データ
 import { useStore } from '@nanostores/vue';
 import { currentDate, valData } from '@store/userStore' 
@@ -9,8 +9,16 @@ dayjs.locale("ja");
 const date = ref(useStore(currentDate))
 const values = useStore(valData)
 
+const props = defineProps({
+    tgtval: Number ,
+    name: String
+})
+
+
+date.value = dayjs().add(3,"month")
 console.log(date.value)
-console.log(currentDate)
+const defaultDate =  new Date(date.value)
+console.log("defaultDate",defaultDate)
 const disableDates= {
                 before: new Date(2022, 5, 1),
                 after: new Date(2022, 5, 31),
@@ -46,8 +54,8 @@ const handleUpdate = (payload) =>{
 <template>
     <DatePicker 
         locale="ja-JP" 
-        firstDayOfWeek="sunday" 
-       
+        firstDayOfWeek="monday"
+        :selected-date="new Date(2024, 0, 8)"
         :default-date="new Date(date)"
         @updated="handleUpdate" 
     />

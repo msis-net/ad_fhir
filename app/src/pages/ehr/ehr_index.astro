@@ -1,8 +1,7 @@
 ---
-import Layout from "@layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro"
 import Datepicker from "@components/vue/datepicker.vue";
-import Qalendar from "@components/vue/qalendar.vue";
-
+import VueDatePicker from "@components/vue/vuedatepicker.vue"
 //const label = '診療録'
 const path = "../"
 
@@ -27,17 +26,12 @@ try {
     <div class="app-content-header"> <!--begin::Container-->
         <div class="container-fluid"> <!--begin::Row-->
             <div class="row">
-                <div class="col-sm-4">
-                    <Datepicker @changeDate="changeDate" client:load />
-                 
+                <div class="col-sm-6">
+                    <Datepicker client:only="vue" />
+                    <VueDatePicker client:only="vue" />
                 </div>
-                <div class="col-sm-4">
-                    <ol class="breadcrumb float-sm">
-                        [{id}]
-                    </ol>
-                </div>
-                <div class="col-sm-4">
-                    <Qalendar client:only="vue"/>
+                <div class="col-sm-6">
+                    
                 </div>
             </div> <!--end::Row-->
         </div> <!--end::Container-->
@@ -48,7 +42,7 @@ try {
                 <div class="col-md-6">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h3 class="card-title">Bordered Table</h3>
+                            <h3 class="card-title">Bordered Table[{id}]</h3>
                         </div> <!-- /.card-header -->
                         <div class="card-body">
                             <table class="table table-bordered">
